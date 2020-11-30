@@ -1,0 +1,16 @@
+.sprite { 
+    background-image: url(sprite.png);
+    background-repeat: no-repeat;
+    display: block;
+    } 
+
+.sprite-img1{
+width:100px;
+height:100px;
+background-position: -5px -5px;} 
+
+.sprite-img2{
+width:100px;
+height:100px;
+background-position: -115px -5px;} 
+

@@ -12,8 +12,8 @@ function my_merge_image($first_img_path,$second_img_path){
     $width_second=imagesx($second_img);
 
 
-    $height=$height_first+5;
-    $width=$width_first+$width_second+3;
+    $height=(($height_first+$height_second)/2)+10;
+    $width=$width_first+$width_second+20;
 
     $files=array($first_img,$second_img);
 
@@ -25,19 +25,12 @@ function my_merge_image($first_img_path,$second_img_path){
 
     $pos=0;
     foreach ($files as $file){
-
-
-        imagecopy($img,$file,$pos,0,0,0,$width_first,$height_first);
+        imagecopy($img,$file,$pos,5,0,0,$width_first,$height_first);
         $pos+=(5+$width_first);
-
     }
-    imagepng($img);
+    imagepng($img,"sprite.png");
     imagedestroy($first_img);
     imagedestroy($second_img);
-
-
-
-
 
 }
 my_merge_image("img1.png","img2.png");
