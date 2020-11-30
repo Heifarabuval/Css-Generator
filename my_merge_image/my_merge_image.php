@@ -6,18 +6,20 @@ function my_merge_image($first_img_path,$second_img_path){
     $width_first=imagesx($first_img);
     $height_second=imagesy($second_img);
     $width_second=imagesx($second_img);
-   echo "first X : ".$first_img_x=$width_first."\n";
-    echo "first Y : ".$first_img_y=$height_first."\n";
-    echo "Second X : ".$second_img_x=$width_second."\n";
-    echo "Second Y : ".$second_img_y=$height_second."\n";
+
+    //Find the middle of first image
+   echo "first X : ".$first_img_x=($width_second+120-$width_first)/2;
+   echo "first Y : ".$first_img_y=($height_second+120-$height_first)/2;
+
+    //Fusion des images
+    imagecopymerge($first_img,$second_img,0,0,$first_img_x,$first_img_y,$width_first,$height_first,30);
+    /** For test :
+     *imagepng($first_img,"img3.png");
+     */
+    return imagepng($first_img);
 
 
-
-    imagecopymerge($first_img,$second_img,0,0,-320,-320,$width_first,$height_first,30);
-    imagepng($first_img,"img3.png");
-    imagedestroy($first_img);
-    imagedestroy($second_img);
 
 }
-my_merge_image("img1.png","img2.png");
+echo my_merge_image("img1.png","img2.png");
 
