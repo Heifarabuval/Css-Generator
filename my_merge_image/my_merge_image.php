@@ -1,25 +1,44 @@
 <?php
 function my_merge_image($first_img_path,$second_img_path){
+    header('Content-Type: image/png');
+    //transform image to objects
     $first_img=imagecreatefrompng($first_img_path);
     $second_img=imagecreatefrompng($second_img_path);
+    //first img size
     $height_first=imagesy($first_img);
     $width_first=imagesx($first_img);
+    //second img size
     $height_second=imagesy($second_img);
     $width_second=imagesx($second_img);
 
-    //Find the middle of first image
-   echo "first X : ".$first_img_x=($width_second+120-$width_first)/2;
-   echo "first Y : ".$first_img_y=($height_second+120-$height_first)/2;
 
-    //Fusion des images
-    imagecopymerge($first_img,$second_img,0,0,$first_img_x,$first_img_y,$width_first,$height_first,30);
-    /** For test :
-     *imagepng($first_img,"img3.png");
-     */
-    return imagepng($first_img);
+    $height=$height_first+5;
+    $width=$width_first+$width_second+3;
+
+    $files=array($first_img,$second_img);
+
+    $img = imagecreatetruecolor($width, $height);
+    $background = imagecolorallocatealpha($img, 255, 255, 255, 127);
+    imagefill($img, 0, 0, $background);
+    imagealphablending($img, false);
+    imagesavealpha($img, true);
+
+    $pos=0;
+    foreach ($files as $file){
+
+
+        imagecopy($img,$file,$pos,0,0,0,$width_first,$height_first);
+        $pos+=(5+$width_first);
+
+    }
+    imagepng($img);
+    imagedestroy($first_img);
+    imagedestroy($second_img);
+
+
 
 
 
 }
-echo my_merge_image("img1.png","img2.png");
+my_merge_image("img1.png","img2.png");
 
