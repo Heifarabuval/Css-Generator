@@ -4,28 +4,68 @@
     display: block;
     } 
 
-.sprite-img1{
-width:100px;
-height:100px;
+.sprite-img4{
+width:144px;
+height:144px;
 background-position: 0px 0px;} 
-
-.sprite-img2{
-width:100px;
-height:100px;
-background-position: -100px 0px;} 
 
 .sprite-img3{
 width:240px;
 height:240px;
-background-position: -200px 0px;} 
+background-position: -144px 0px;} 
 
-.sprite-img4{
-width:144px;
-height:144px;
-background-position: -440px 0px;} 
+.sprite-img2{
+width:100px;
+height:100px;
+background-position: -384px 0px;} 
 
 .sprite-img5{
 width:480px;
 height:480px;
-background-position: -584px 0px;} 
+background-position: -484px 0px;} 
+
+.sprite-icons8-futurama-leela-128{
+width:128px;
+height:128px;
+background-position: -964px 0px;} 
+
+.sprite-icons8-futurama-mom-200{
+width:200px;
+height:200px;
+background-position: -1092px 0px;} 
+
+.sprite-icons8-futurama-amy-wong-64{
+width:64px;
+height:64px;
+background-position: -1292px 0px;} 
+
+.sprite-icons8-futurama-zoidberg-128{
+width:128px;
+height:128px;
+background-position: -1356px 0px;} 
+
+.sprite-icons8-futurama-nibbler-64{
+width:64px;
+height:64px;
+background-position: -1484px 0px;} 
+
+.sprite-icons8-futurama-fry-128{
+width:128px;
+height:128px;
+background-position: -1548px 0px;} 
+
+.sprite-icons8-futurama-hermes-conrad-128{
+width:128px;
+height:128px;
+background-position: -1676px 0px;} 
+
+.sprite-icons8-futurama-professor-farnsworth-128{
+width:128px;
+height:128px;
+background-position: -1804px 0px;} 
+
+.sprite-img1{
+width:100px;
+height:100px;
+background-position: -1932px 0px;} 
 

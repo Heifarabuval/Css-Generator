@@ -4,7 +4,9 @@
 $images=array();
 $imagesPathsArray=array();
 static $positionsx;
-$images=createImagesObj("img1.png","img2.png","img3.png","img4.png","img5.png");
+scan_dir("/home/profchen/Documents/Epitech/ModuleCss/Bootstrap/Css-Generator/MergeImg&CssGenerator");
+$images=createImagesObj($imagesPathsArray);
+
 
 /* Start */
 copyImagesOnBackground();
@@ -12,7 +14,7 @@ generateCss();
 
 
 //transform path to objects img
-function createImagesObj(...$imagesPaths){
+function createImagesObj($imagesPaths){
     global $imagesPathsArray;
     $imagesPathsArray=$imagesPaths;
     foreach ($imagesPaths as $key => $imagePath){
@@ -93,11 +95,36 @@ function generateCss(){
     foreach ($imagesPathsArray as $key => $file) {
         $imageSizes = getimagesize($file);
         $position=-$positionsx[$key];
-        fwrite($handle,".sprite-".getNames($imagesPathsArray)[$key]."{".
+
+        fwrite($handle,".sprite-".basename(getNames($imagesPathsArray)[$key])."{".
             "\n"."width:".strval( $imageSizes[0])."px;".
             "\n"."height:". strval($imageSizes[1]) ."px;".
             "\nbackground-position: ".strval($position."px 0px;} \n\n"));
 
     }
+
+}
+
+function scan_dir($dirPath){
+    global $imagesPathsArray;
+    static $images;
+    if ($handle = opendir($dirPath)) {
+
+        while (false !== ($entry = readdir($handle))) {
+
+            if ($entry != "." && $entry != "..") {
+                if (preg_match("~\.~",$entry)){
+                    if (preg_match("~\.png~",$entry)&&basename($entry!="sprite.png")){
+                        $images[]="$dirPath/$entry";}
+                }else{
+                    scan_dir($dirPath."/".$entry);
+                }
+
+            }
+        }
+
+        closedir($handle);
+    }
+    $imagesPathsArray=$images;
 
 }
