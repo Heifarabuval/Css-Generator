@@ -1,16 +1,14 @@
 <?php
 function my_generate_css($image1,$image2)
 {
-
-
     $array = array($image1, $image2);
-
     $styleName = "style.css";
     $handle = fopen($styleName, "w+");
 
+    //TODO change sprite.png by name
     fwrite($handle,
         ".sprite { 
-    background-image: url(sprite.png);
+    background-image: url(sprite.png);     
     background-repeat: no-repeat;
     display: block;
     } \n\n");
@@ -26,7 +24,6 @@ function my_generate_css($image1,$image2)
             "\nbackground-position: -".$backPosWidth."px -5px;} \n\n");
         $backPosWidth+=$dataImg[0]+10;
     }
-
 
 
 }
