@@ -1,16 +1,72 @@
 <?php
 
+
+
+
 /* Globals */
+
 $images=array();
 $imagesPathsArray=array();
 static $positionsx;
-scan_dir("/home/profchen/Documents/Epitech/ModuleCss/Bootstrap/Css-Generator/MergeImg&CssGenerator");
-$images=createImagesObj($imagesPathsArray);
+static $imageName;
+
+$answer=readline();
+if (trim($answer)=="css_generator"){
+
+    start();
+}
+
+if (preg_match("~-i~",$answer)){
+    echo PHP_EOL."-I".PHP_EOL;
+   preg_filter( "~i~","",explode("-",$answer))[0];
 
 
-/* Start */
-copyImagesOnBackground();
-generateCss();
+}
+if (preg_match("~-s~",$answer)){
+    echo PHP_EOL."-S".PHP_EOL;
+}
+
+if (preg_match("~-r~",$answer)){
+    echo PHP_EOL."-R".PHP_EOL;
+
+    start_recursivity();
+}
+
+
+/*
+
+switch ($answer){
+    case "css_generator -s" :
+        echo "\nanswer : -s\n";
+        break;
+    case "css_generator -r":
+        echo "\nanswer : -r\n";
+        break;
+    case "css_generator -i":
+        echo "\nanswer : -i\n";
+        break;
+}
+*/
+
+
+function start(){
+    global $imagesPathsArray;
+    global $images;
+    scan_dir("/home/profchen/Documents/Epitech/ModuleCss/Bootstrap/Css-Generator/MergeImg&CssGenerator");
+    $images=createImagesObj($imagesPathsArray);
+    copyImagesOnBackground();
+    generateCss();
+}
+
+function start_recursivity(){
+    global $imagesPathsArray;
+    global $images;
+    scan_dir_recursivity("/home/profchen/Documents/Epitech/ModuleCss/Bootstrap/Css-Generator/MergeImg&CssGenerator");
+    $images=createImagesObj($imagesPathsArray);
+    copyImagesOnBackground();
+    generateCss();
+}
+
 
 
 //transform path to objects img
@@ -57,7 +113,7 @@ function createBackground(){
 
 
 /* Creating the sprite sheet */
-function copyImagesOnBackground(){
+function copyImagesOnBackground($name="sprite.png"){
     $background=createBackground();
     global $images;
     global $positionsx;
@@ -67,7 +123,8 @@ function copyImagesOnBackground(){
         imagecopy($background,$image,$positionx,0,0,0,imagesx($image),imagesy($image));
         $positionx+=(imagesx($image));
     }
-    imagepng($background,"sprite.png");
+    imagepng($background,$name);
+    echo PHP_EOL."==>$name generated !".PHP_EOL;
 }
 
 //Css
@@ -80,11 +137,10 @@ function getNames($images)
 }
 
 /* Generate Css */
-function generateCss(){
+function generateCss($name="style.css"){
     global $positionsx;
     global $imagesPathsArray;
-    $styleName = "style.css";
-    $handle = fopen($styleName, "w+");
+    $handle = fopen($name, "w+");
     fwrite($handle,
         ".sprite { 
     background-image: url(sprite.png);     
@@ -102,10 +158,10 @@ function generateCss(){
             "\nbackground-position: ".strval($position."px 0px;} \n\n"));
 
     }
-
+echo PHP_EOL."==>$name generated !".PHP_EOL;
 }
 
-function scan_dir($dirPath){
+function scan_dir_recursivity($dirPath){
     global $imagesPathsArray;
     static $images;
     if ($handle = opendir($dirPath)) {
@@ -117,8 +173,27 @@ function scan_dir($dirPath){
                     if (preg_match("~\.png~",$entry)&&basename($entry!="sprite.png")){
                         $images[]="$dirPath/$entry";}
                 }else{
-                    scan_dir($dirPath."/".$entry);
+                    scan_dir_recursivity($dirPath."/".$entry);
                 }
+
+            }
+        }
+
+        closedir($handle);
+    }
+    $imagesPathsArray=$images;
+
+}
+
+function scan_dir($dirPath){
+    global $imagesPathsArray;
+    static $images;
+    if ($handle = opendir($dirPath)) {
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                    if (preg_match("~\.png~",$entry)&&basename($entry!="sprite.png")){
+                        $images[]="$dirPath/$entry";}
+
 
             }
         }
