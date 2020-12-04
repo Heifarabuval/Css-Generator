@@ -5,8 +5,8 @@ $imagesPathsArray=array();
 static $positionsx;
 static $size;
 $padding=0;
- $imageName="sprite.png";
- $cssName="style.css";
+$imageName="sprite.png";
+$cssName="style.css";
 
 
 
@@ -188,11 +188,9 @@ function copyImagesOnBackground(){
     foreach ($imagesObject as $image){
         $positionsx[]= $positionx;
         if (!isset($size)){
-            echo $size;
             imagecopy($background,$image,$positionx,0,0,0,imagesx($image),imagesy($image));
             $positionx+=(imagesx($image))+$padding;
         }else {
-            echo $size;
             imagecopyresized($background, $image, $positionx, 0, 0, 0, $size, $size, imagesx($image), imagesy($image));
             $positionx+=($size)+$padding;
         }
