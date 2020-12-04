@@ -1,0 +1,26 @@
+.sprite { 
+    background-image: url(sprite.png);     
+    background-repeat: no-repeat;
+    display: block;
+    } 
+
+#sprite-img4{
+width:144px;
+height:144px;
+background-position: 0px 0px;} 
+
+#sprite-img3{
+width:240px;
+height:240px;
+background-position: -144px 0px;} 
+
+#sprite-img2{
+width:100px;
+height:100px;
+background-position: -384px 0px;} 
+
+#sprite-img5{
+width:480px;
+height:480px;
+background-position: -484px 0px;} 
+
