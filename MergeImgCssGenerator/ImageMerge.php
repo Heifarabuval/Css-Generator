@@ -4,35 +4,13 @@ $imagesObject=array();
 $imagesPathsArray=array();
 static $positionsx;
 static $size;
+/* Default values */
 $padding=0;
 $imageName="sprite.png";
 $cssName="style.css";
 
-
-
 if (in_array("man",$argv)&&$argc<3) {
-    echo "
-      \n\n\t\t\t  |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
-            \t\t  | SPRITESHEET & CSS GENERATOR : MAN... |
-            \t\t  |______________________________________|\n\n                        
-\t[SYNOPSIS]
-\tcss_generator [OPTIONS]. . . assets_folder\n\n
-\t[DESCRIPTION]
-\tConcatenate all images inside a folder in one sprite and write a style sheet ready to use. Mandatory arguments to long options are mandatory 
-\tfor short options too.\n
-\t-r, --recursive
-\tLook for images into the assets_folder passed as argument and all of its subdirectories.\n
-\t-i, --output-image=IMAGE
-\tName of the generated image. If blank, the default name is « sprite.png ».\n
-\t-s, --output-style=STYLE
-\tName of the generated stylesheet. If blank, the default name is « style.css ».\n\n
-\t[BONUS OPTIONS]
-\t-p, --padding=NUMBER
-\tAdd padding between images of NUMBER pixels.\n
-\t-o, --override-size=SIZE
-\tForce each images of the sprite to fit a size of SIZExSIZE pixels.\n
-\t-c, --columns_number=NUMBER
-\tThe maximum number of elements to be generated horizontally.\n";
+    displayMan();
 }else {
     /* Get the passed arguments */
     foreach ($argv as $key => $argument) {
@@ -40,66 +18,71 @@ if (in_array("man",$argv)&&$argc<3) {
         /* -i parameter */
         if (preg_match("~^-i$~", $argument)) {
             global $imageName;
-            echo PHP_EOL . "-I" . PHP_EOL;
-            $imageName = $argv[$key + 1];
-            if (strlen($imageName) < 1) {
+            if (isset($argv[$key + 1])){
+            $imageName = $argv[$key + 1];}
+            if (!preg_match("~[A-Za-z0-9_.]\.png~",$imageName)) {
                 $imageName = "sprite.png";
             }
-            echo PHP_EOL . $imageName . PHP_EOL;
-        }
+            echo "\n\e[35m spriteSheet name: $imageName  \e[0m \n";
 
+        }
         /* --output-images parameter */
         if (preg_match("~--output-image=~", $argument)) {
             global $imageName;
-            echo PHP_EOL . "-I out" . PHP_EOL;
             $imageName = explode("=", $argument)[1];
-            if (strlen($imageName) < 1) {
+            if (!preg_match("~[A-Za-z0-9_.]\.png~",$imageName)) {
                 $imageName = "sprite.png";
             }
-            echo PHP_EOL . $imageName . PHP_EOL;
+            echo "\n\e[35m spriteSheet name: $imageName  \e[0m \n";
         }
         /* -s parameter */
         if (preg_match("~^-s$~", $argument)) {
-            echo PHP_EOL . "-S" . PHP_EOL;
-            $cssName = $argv[$key + 1];
-            if (strlen($cssName) < 1) {
-                $imageName = "style.css";
+            if (isset($argv[$key + 1])){
+            $cssName = $argv[$key + 1];}
+            if (!preg_match("~[A-Za-z0-9_.]\.css~",$cssName)) {
+                $cssName = "style.css";
             }
-            echo PHP_EOL . $cssName . PHP_EOL;
+            echo "\n\e[35m Css name: $cssName  \e[0m \n";
         }
         /* --output-style parameter */
         if (preg_match("~--output-style=~", $argument)) {
             global $cssName;
-            echo PHP_EOL . "-I" . PHP_EOL;
             $cssName = explode("=", $argument)[1];
-            if (strlen($cssName) < 1) {
-                $imageName = "style.css";
+            if (!preg_match("~[A-Za-z0-9_.]\.css~",$cssName)) {
+                $cssName = "style.css";
             }
-            echo PHP_EOL . $imageName . PHP_EOL;
+            echo "\n\e[35m Css name: $cssName  \e[0m \n";
         }
 
 
         /* -p parameter */
         if (preg_match("~^-p$~", $argument)) {
             global $padding;
-            echo PHP_EOL . "-P" . PHP_EOL;
-            $padding = $argv[$key + 1];
-            echo PHP_EOL . $padding . PHP_EOL;
+            if (isset($argv[$key+1])){
+            $padding = $argv[$key + 1];}
+            if (!is_numeric($padding)) {
+                $padding = 0;
+            }
+            echo "\n\e[35m Padding: $padding px \e[0m \n";
         }
 
 
         /* -o parameter */
         if (preg_match("~^-o$~", $argument)) {
             global $size;
-            echo PHP_EOL . "-O" . PHP_EOL;
-            $size = $argv[$key + 1];
-            echo PHP_EOL . $size . PHP_EOL;
+            if (isset($argv[$key+1])){
+            $size = $argv[$key + 1];}
+            if (!is_numeric($size)) {
+                $size =null;
+            }else{
+                echo "\n\e[35m Size changed =>  Width: $size px | Height: $size px \e[0m \n";
+            }
         }
 
     }
 
     /* Recursivity parameter */
-    if (in_array("-r", $argv)) {
+    if (in_array("-r", $argv)||in_array("--recursive",$argv)) {
         echo PHP_EOL . "-R" . PHP_EOL;
         start_recursivity();
     } else {
@@ -110,12 +93,19 @@ if (in_array("man",$argv)&&$argc<3) {
 
 /* Normal start */
 function start(){
-    global $imagesPathsArray,$imagesObject,$argv;
+    global $imagesPathsArray,$imagesObject,$argv,$argc;
+
+    if (!is_dir($argv[1])){
+        echo "\n\t\t\e[31mErreur: Veuillez indiquer le chemin vers votre dossier. Redirection vers le MAN en cours...\e[0m \n";
+        sleep(2);
+        ncurses_clear();
+        displayMan();
+    }else{
     scan_dir($argv[1]);
     $imagesObject=createImagesObj($imagesPathsArray);
     copyImagesOnBackground();
     generateCss();
-}
+}}
 
     /* Start recursive mode */
 function start_recursivity(){
@@ -147,7 +137,6 @@ function setBackgroundHeight(){
             $maxHeight[$key]=imagesy($image);
         }else{
             $maxHeight[$key]=$size;
-            var_dump($maxHeight);
         }
     }
     return  max($maxHeight);
@@ -156,15 +145,15 @@ function setBackgroundHeight(){
 /* Add all widths to set background width */
 function setBackgroundWidth(){
     global $imagesObject,$padding,$size;
-    static $finalHeight;
+    static $finalWidth;
     foreach ($imagesObject as $image){
         if (!isset($size)){
-            $finalHeight+=imagesx($image)+$padding;
+            $finalWidth+=imagesx($image)+$padding;
         }else{
-            $finalHeight+=$size+$padding;
+            $finalWidth+=$size+$padding;
         }
 
-    }return $finalHeight;
+    }return $finalWidth;
 
 }
 
@@ -197,7 +186,7 @@ function copyImagesOnBackground(){
 
     }
     imagepng($background,$imageName);
-    echo PHP_EOL."==>$imageName generated !".PHP_EOL;
+    echo "\n\e[33m $imageName generated  \e[0m \n";
 }
 
 
@@ -205,7 +194,6 @@ function copyImagesOnBackground(){
 function getNames($images)
 {
     return explode(" ", trim(str_replace(".png", " ", implode($images))));
-
 }
 
 /* Generate Css */
@@ -231,10 +219,10 @@ function generateCss(){
             fwrite($handle, "#sprite-" . basename(getNames($imagesPathsArray)[$key]) . "{" .
                 "\n" . "width:" . strval($size) . "px;" .
                 "\n" . "height:" . strval($size) . "px;" .
-                "\nbackground-position: " . strval($position . "px 0px;} \n\n"));
+                "\nbackground-position: " . strval($position)."px 0px;} \n\n");
         }
     }
-echo PHP_EOL."==>$cssName generated !".PHP_EOL;
+    echo "\n\e[33m $cssName generated  \e[0m \n\n";
 }
 
 
@@ -273,3 +261,45 @@ function scan_dir($dirPath){
     }
     $imagesPathsArray=$images;
 }
+
+function displayMan(){
+    echo   <<< EOF
+\e[33m
+                          |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+                          | SPRITESHEET & CSS GENERATOR : MAN... |
+                          |______________________________________|\e[0m 
+                            
+ \e[33m[SYNOPSIS]\e[0m 
+ css_generator [OPTIONS]. . . assets_folder
+ 
+ 
+ \e[33m[DESCRIPTION]\e[0m
+ Concatenate all images inside a folder in one sprite and write a style sheet ready to use. Mandatory arguments to long options are mandatory 
+ for short options too.
+ 
+ \e[34m-r, --recursive\e[0m
+ Look for images into the assets_folder passed as argument and all of its subdirectories.
+ 
+ \e[34m-i, --output-image=IMAGE\e[0m
+ Name of the generated image. If blank, the default name is « sprite.png ».
+ 
+ \e[34m-s, --output-style=STYLE\e[0m
+ Name of the generated stylesheet. If blank, the default name is « style.css ».
+ 
+ 
+ \e[33m[BONUS OPTIONS]\e[0m
+ \e[34m-p, --padding=NUMBER\e[0m
+ Add padding between images of NUMBER pixels.
+ 
+ \e[34m-o, --override-size=SIZE\e[0m
+ Force each images of the sprite to fit a size of SIZExSIZE pixels.
+ 
+ \e[34m-c, --columns_number=NUMBER\e[0m
+ The maximum number of elements to be generated horizontally.
+ 
+ 
+EOF;
+}
+
+
+
