@@ -1,9 +1,6 @@
 <?php
 /* Globals */
-$imagesObject=array();
-$imagesPathsArray=array();
-static $positionsx;
-static $size;
+static $positionsx,$size,$folderArray,$imagesPathsArray,$imagesObject;
 /* Default values */
 $padding=0;
 $imageName="sprite.png";
@@ -104,24 +101,26 @@ start();
 
 /* Normal start */
 function start(){
-    global $imagesPathsArray,$imagesObject,$argv,$argc;
+    global $imagesPathsArray,$imagesObject,$argv,$folderArray;
     if (isset($argv[1])){
-    if (!is_dir($argv[1])){
+        $dir=$argv[1];
+    if (!is_dir($dir)){
         echo "\n\t\t\e[31mErreur: Veuillez indiquer le chemin vers votre dossier. Redirection vers le MAN en cours...\e[0m \n";
         sleep(2);
         displayMan();
     }else{
         /* Recursivity parameter */
         if (in_array("-r", $argv)||in_array("--recursive",$argv)) {
-            scan_dir_recursivity($argv[1]);
+            scan_dir_recursivity($dir);
         } else {
-            scan_dir($argv[1]);
+            scan_dir($dir);
         }
 
     $imagesObject=createImagesObj($imagesPathsArray);
     copyImagesOnBackground();
     generateCss();
     generateHtml();
+    deleteImages($dir);
 }}else{echo "\n\t\t\e[31m Erreur lors du passage de paramètres: Redirection vers le MAN en cours...\e[0m \n";
         sleep(2);
         displayMan();}}
@@ -253,7 +252,7 @@ function generateHtml(){
 
 /*Scan dir func with recursivity*/
 function scan_dir_recursivity($dirPath){
-    global $imagesPathsArray;
+    global $imagesPathsArray,$folderArray;
     static $imagesPath;
     if ($handle = opendir($dirPath)) {
         while (false !== ($entry = readdir($handle))) {
@@ -262,7 +261,9 @@ function scan_dir_recursivity($dirPath){
                     if (preg_match("~\.png~",$entry)&&basename($entry!="sprite.png")){
                         $imagesPath[]="$dirPath/$entry";}
                 }else{
+                    $folderArray[]=$dirPath."/".$entry;
                     scan_dir_recursivity($dirPath."/".$entry);
+
                 }
             }
         }
@@ -286,7 +287,10 @@ function scan_dir($dirPath){
     }
     $imagesPathsArray=$images;
 }
+function deleteImages($dirPath){
+        shell_exec("rm -fr $dirPath");
 
+}
 function displayMan(){
     system('clear');
     echo   <<< EOF

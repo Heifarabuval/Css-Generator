@@ -5,22 +5,92 @@
     } 
 
 #sprite-img4{
-width:144px;
-height:144px;
+width:100px;
+height:100px;
 background-position: 0px 0px;} 
 
 #sprite-img3{
-width:240px;
-height:240px;
-background-position: -144px 0px;} 
+width:100px;
+height:100px;
+background-position: -100px 0px;} 
+
+#sprite-img5{
+width:100px;
+height:100px;
+background-position: -200px 0px;} 
 
 #sprite-img2{
 width:100px;
 height:100px;
-background-position: -384px 0px;} 
+background-position: -300px 0px;} 
 
-#sprite-img5{
-width:480px;
-height:480px;
-background-position: -484px 0px;} 
+#sprite-icons8-super-mario-256{
+width:100px;
+height:100px;
+background-position: -400px 0px;} 
+
+#sprite-icons8-son-goku-256{
+width:100px;
+height:100px;
+background-position: -500px 0px;} 
+
+#sprite-icons8-stich-256{
+width:100px;
+height:100px;
+background-position: -600px 0px;} 
+
+#sprite-icons8-walter-white-256{
+width:100px;
+height:100px;
+background-position: -700px 0px;} 
+
+#sprite-icons8-darth-vader-256{
+width:100px;
+height:100px;
+background-position: -800px 0px;} 
+
+#sprite-icons8-harry-potter-256{
+width:100px;
+height:100px;
+background-position: -900px 0px;} 
+
+#sprite-icons8-futurama-mom-200{
+width:100px;
+height:100px;
+background-position: -1000px 0px;} 
+
+#sprite-icons8-futurama-fry-128{
+width:100px;
+height:100px;
+background-position: -1100px 0px;} 
+
+#sprite-icons8-futurama-nibbler-64{
+width:100px;
+height:100px;
+background-position: -1200px 0px;} 
+
+#sprite-icons8-futurama-professor-farnsworth-128{
+width:100px;
+height:100px;
+background-position: -1300px 0px;} 
+
+#sprite-icons8-futurama-hermes-conrad-128{
+width:100px;
+height:100px;
+background-position: -1400px 0px;} 
+
+#sprite-icons8-futurama-zoidberg-128{
+width:100px;
+height:100px;
+background-position: -1500px 0px;} 
+
+#sprite-img1{
+width:100px;
+height:100px;
+background-position: -1600px 0px;} 
+
+#sprite-icons8-futurama-leela-128{
+width:100px;
+height:100px;
+background-position: -1700px 0px;} 
 
