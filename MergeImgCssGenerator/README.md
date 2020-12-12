@@ -86,28 +86,28 @@ What you need to use the software and how to install it:
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-I want to concatenate images contains by my directory **Images**:
+I want to concatenate images contained inside my directory **Images**:
 ```sh
 php ImageMerge.php /home/laptop/Images/images
 ```
 
-I want to concatenate images contains by my directory **Images** and is subdirectories:
+I want to concatenate images contained inside my directory **Images** and is subdirectories:
 ```sh
 php ImageMerge.php /home/laptop/Images/images -r
 ```
-I want to concatenate images contains by my directory **Images**, change the output Css and image name using short options:
+I want to concatenate images contained inside my directory **Images**, change the output Css and image name using short options:
 ```sh
 php ImageMerge.php /home/laptop/Images/images -s cssName.css -i imageName.css
 ```
-You can use the long version also:
+You can also use the long version:
 ```sh
 php ImageMerge.php /home/laptop/Images/images --output-style=cssName.css --output-image= imageName.css
 ```
-I want to concatenate images contains by my directory **Images** and change output images size to 200px*200px and increase padding to 20px using short options:
+I want to concatenate images contained inside my directory **Images** and change output images size to 200px*200px and increase padding to 20px using short options:
 ```sh
 php ImageMerge.php /home/laptop/Images/images -o 200 -p 20
 ```
-You can use the long version also:
+You can also use the long version:
 ```sh
 php ImageMerge.php /home/laptop/Images/images --override-size=200 --padding=20
 ```
