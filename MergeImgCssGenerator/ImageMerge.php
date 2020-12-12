@@ -94,13 +94,11 @@ if (in_array("man",$argv)&&$argc<3) {
     }
 }
 
-
 /**----------------------------------------------------------------------------------------------------------------------------------
  * Launching !
  * ----------------------------------------------------------------------------------------------------------------------------------
  */
 start();
-
 
 /* Normal start */
 function start(){
@@ -126,8 +124,6 @@ function start(){
         sleep(2);
         displayMan();}}
 
-
-
 /* transform path to objects img */
 function createImagesObj($imagesPaths){
     global $imagesPathsArray;
@@ -144,7 +140,6 @@ function createImagesObj($imagesPaths){
     }
     return $objectsImages;
 }
-
 
 /* get max height to set background height */
 function setBackgroundHeightAndWidth(){
@@ -172,7 +167,6 @@ function createBackground(){
     return $img;
 }
 
-
 /* Creating the sprite sheet */
 function copyImagesOnBackground(){
     $background=createBackground();
@@ -192,7 +186,6 @@ function copyImagesOnBackground(){
     echo "\n\e[33m $imageName generated \e[0m \n";
 
 }
-
 
 /* GetImages Names */
 function getNames($images)
@@ -227,6 +220,7 @@ function generateCss(){
     }
     echo "\n\e[33m $cssName generated  \e[0m \n\n";
 }
+
 
 function generateHtml(){
     global $imagesPathsArray,$cssName;
@@ -304,12 +298,14 @@ function displayMan(){
 \e[0m 
                             
  \e[33m[SYNOPSIS]\e[0m 
- css_generator [OPTIONS]. . . assets_folder
+ php ImageMerge.php assets_folder  [OPTIONS]
+ As example: php ImageMerge.php /home/laptop/PngImagesFolder -r --output-image=spriteSheet.png -o 100
+ Here recursive mode enabled to scan /home/laptop/PngImagesFolder, output name of the sprite sheet set as "spriteSheet.png" and images resized 100px*100px
  
  
  \e[33m[DESCRIPTION]\e[0m
  Concatenate all images inside a folder in one sprite and write a style sheet ready to use. Mandatory arguments to long options are mandatory 
- for short options too.
+ for short options too. Html page also generated.
  
  \e[34m-r, --recursive\e[0m
  Look for images into the assets_folder passed as argument and all of its subdirectories.
@@ -328,9 +324,6 @@ function displayMan(){
  \e[34m-o, --override-size=SIZE\e[0m
  Force each images of the sprite to fit a size of SIZExSIZE pixels.
  
- \e[34m-c, --columns_number=NUMBER\e[0m
- The maximum number of elements to be generated horizontally.
-
 EOF;
 }
 

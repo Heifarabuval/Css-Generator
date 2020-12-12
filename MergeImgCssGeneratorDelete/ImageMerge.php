@@ -311,9 +311,15 @@ function displayMan(){
  css_generator [OPTIONS]. . . assets_folder
  
  
+ \e[33m[SYNOPSIS]\e[0m 
+ php ImageMerge.php assets_folder  [OPTIONS]
+ As example: php ImageMerge.php /home/laptop/PngImagesFolder -r --output-image=spriteSheet.png -o 100
+ Here recursive mode enabled to scan /home/laptop/PngImagesFolder, output name of the sprite sheet set as "spriteSheet.png" and images resized 100px*100px
+ 
+ 
  \e[33m[DESCRIPTION]\e[0m
  Concatenate all images inside a folder in one sprite and write a style sheet ready to use. Mandatory arguments to long options are mandatory 
- for short options too.
+ for short options too. Html page also generated and all given images are deleted.
  
  \e[34m-r, --recursive\e[0m
  Look for images into the assets_folder passed as argument and all of its subdirectories.
@@ -332,9 +338,6 @@ function displayMan(){
  \e[34m-o, --override-size=SIZE\e[0m
  Force each images of the sprite to fit a size of SIZExSIZE pixels.
  
- \e[34m-c, --columns_number=NUMBER\e[0m
- The maximum number of elements to be generated horizontally.
-
 EOF;
 }
 
