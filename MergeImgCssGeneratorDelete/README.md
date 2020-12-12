@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Heifarabuval/Css-Generator/tree/master/MergeImgCssGeneratorDelete">
-    <img src="readMeImg/carbon.png" alt="Logo" width="600" height="200">
+    <img src="readMeImg/carbon.png" alt="Logo" width="800" height="400">
   </a>
  
   <h3 align="center">Sprite Sheet Generator</h3>
