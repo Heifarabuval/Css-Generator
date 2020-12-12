@@ -6,8 +6,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/Heifarabuval/Css-Generator/MergeImgCssGenerator">
-    <img src="readMeImg/carbon.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/Heifarabuval/Css-Generator/tree/master/MergeImgCssGeneratorDelete">
+    <img src="readMeImg/carbon.png" alt="Logo" width="600" height="200">
   </a>
  
   <h3 align="center">Sprite Sheet Generator</h3>
@@ -135,7 +135,7 @@ Free license
 
 Heifara BUVAL - [linkedIn](https://www.linkedin.com/in/heifara-buval-b1662914a/) - heifara.buval@epitech.eu
 
-Project Link: [https://github.com/Heifarabuval/Css-Generator](https://github.com/Heifarabuval/Css-Generator)
+Project Link: [https://github.com/Heifarabuval/Css-Generator/tree/master/MergeImgCssGeneratorDelete](https://github.com/Heifarabuval/Css-Generator)
 
 
 
